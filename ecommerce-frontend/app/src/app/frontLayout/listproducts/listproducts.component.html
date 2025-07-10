@@ -1,0 +1,260 @@
+<!-- Featured Top Sales Section -->
+<section class="bg-gradient-to-r from-blue-50 to-indigo-100 py-8">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Featured Top Sales</h2>
+
+    <!-- Success message for Cart -->
+    <div *ngIf="myCartMsgSuccess" class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        {{ myCartMsgSuccess }}
+      </div>
+    </div>
+
+    <!-- Success message for Favorite -->
+    <div *ngIf="myFavMsgSuccess" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+        {{ myFavMsgSuccess }}
+      </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div *ngFor="let product of topSales" class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+        <div class="relative">
+          <img 
+            [src]="getImageUrl(product.imgURL)" 
+            [alt]="product.name" 
+            class="w-full h-56 object-contain bg-gray-100 transition-transform duration-300 hover:scale-105">
+          <div class="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+            TOP SALE
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 
+            class="font-semibold text-pink-600  mb-3 text-lg line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer" 
+            (click)="getProductById(product.productId)">
+            {{ product.name }}
+          </h3>
+
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xl font-bold text-green-600">${{ product.price }}</span>
+          </div>
+
+          <div class="flex items-center justify-between mb-4 flex-row">
+            <span class="text-xl font-bold text-gray flex flex-row pr-6">Stock:
+           <div class="text-orange-600 pl-2">{{ product.stock }}</div></span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Products Section -->
+<section class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Our Products</h2>
+
+    <!-- Filter Section -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl shadow-xl p-8 mb-8 border border-blue-100">
+      <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        <i class="fas fa-filter text-blue-600 mr-3"></i>Filter Products
+      </h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Brand Filter -->
+        <div class="bg-white rounded-xl p-4 shadow-md border border-blue-200">
+          <label class="block text-sm font-bold text-gray-700 mb-3">
+            <i class="fas fa-tag mr-2 text-blue-600"></i>Brand
+          </label>
+          <select 
+            [(ngModel)]="selectedBrand" 
+            (change)="applyFilters()"
+            class="w-full p-3 rounded-lg border-2 border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all">
+            <option value="">All Brands</option>
+            <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+          </select>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="bg-white rounded-xl p-4 shadow-md border border-green-200">
+          <label class="block text-sm font-bold text-gray-700 mb-3">
+            <i class="fas fa-th-large mr-2 text-green-600"></i>Category
+          </label>
+          <select 
+            [(ngModel)]="selectedCategory" 
+            (change)="applyFilters()"
+            class="w-full p-3 rounded-lg border-2 border-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-400 transition-all">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+
+        <!-- Subcategory Filter -->
+        <div class="bg-white rounded-xl p-4 shadow-md border border-purple-200">
+          <label class="block text-sm font-bold text-gray-700 mb-3">
+            <i class="fas fa-folder-open mr-2 text-purple-600"></i>Subcategory
+          </label>
+          <select 
+            [(ngModel)]="selectedSubcategory" 
+            (change)="applyFilters()"
+            class="w-full p-3 rounded-lg border-2 border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 transition-all">
+            <option value="">All Subcategories</option>
+            <option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory }}</option>
+          </select>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="bg-white rounded-xl p-4 shadow-md border border-orange-200">
+          <label class="block text-sm font-bold text-gray-700 mb-3">
+            <i class="fas fa-dollar-sign mr-2 text-orange-600"></i>Max Price
+          </label>
+          <input 
+            type="number" 
+            [(ngModel)]="selectedPrice" 
+            (input)="applyFilters()"
+            placeholder="Enter max price"
+            class="w-full p-3 rounded-lg border-2 border-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-400 transition-all">
+        </div>
+      </div>
+
+      <!-- Clear Filters Button -->
+      <div class="mt-6 text-center">
+        <button 
+          (click)="clearFilters()"
+          class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-8 py-3 rounded-xl transition-all transform hover:scale-105 font-bold shadow-lg">
+          <i class="fas fa-times mr-2"></i>Clear All Filters
+        </button>
+      </div>
+
+      <!-- Active Filters Display -->
+      <div *ngIf="hasActiveFilters()" class="mt-6 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl border border-blue-200">
+        <h4 class="text-sm font-bold text-blue-800 mb-3 flex items-center">
+          <i class="fas fa-check-circle mr-2"></i>Active Filters:
+        </h4>
+        <div class="flex flex-wrap gap-3">
+          <span *ngIf="selectedBrand" class="bg-blue-200 text-blue-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+            <i class="fas fa-tag mr-1"></i>{{ selectedBrand }}
+          </span>
+          <span *ngIf="selectedCategory" class="bg-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+            <i class="fas fa-th-large mr-1"></i>{{ selectedCategory }}
+          </span>
+          <span *ngIf="selectedSubcategory" class="bg-purple-200 text-purple-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+            <i class="fas fa-folder-open mr-1"></i>{{ selectedSubcategory }}
+          </span>
+          <span *ngIf="selectedPrice" class="bg-orange-200 text-orange-800 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+            <i class="fas fa-dollar-sign mr-1"></i>${{ selectedPrice }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Success Messages -->
+    <div *ngIf="myCartMsgSuccess" class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        {{myCartMsgSuccess}}
+      </div>
+    </div>
+    
+    <div *ngIf="myFavMsgSuccess" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+        {{myFavMsgSuccess}}
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div *ngFor="let product of products" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100">
+        <div class="relative">
+          <img 
+            [src]="getImageUrl(product.imgURL)" 
+            [alt]="product.name" 
+            class="w-full h-64 object-contain bg-gray-100 transition-transform duration-300 hover:scale-105 cursor-pointer"
+            (click)="getProductById(product._id)"
+          >
+          <div class="absolute top-3 right-3">
+            <button (click)="addToFav(product._id)" class="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-2 transition-all shadow-lg">
+              <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-5">
+          <h3 class="font-semibold text-gray-800 mb-3 text-lg line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer" (click)="getProductById(product._id)">{{product.name}}</h3>
+          
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xl font-bold text-green-600">${{product.price}}</span>
+            <span *ngIf="product.originalPrice" class="text-sm text-gray-500 line-through">${{product.originalPrice}}</span>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button (click)="addToCart(product._id)" class="flex-1 bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center font-medium">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+              </svg>
+              Add to Cart
+            </button>
+            <button (click)="getProductById(product._id)" class="bg-gray-600 text-white px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center items-center mt-8 space-x-4">
+      <button 
+        (click)="previousPage()"
+        [disabled]="pagination.page <= 1"
+        class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium shadow-lg"
+      >
+        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Previous
+      </button>
+      
+      <span class="px-6 py-3 bg-white rounded-lg shadow-md font-medium text-gray-700 border border-gray-200">
+        {{ pagination.page }} / {{ pagination.totalPages }}
+      </span>
+      
+      <button 
+        (click)="nextPage()"
+        [disabled]="pagination.page >= pagination.totalPages"
+        class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium shadow-lg"
+      >
+        Next
+        <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="text-center mt-6 text-gray-600 font-medium">
+      Showing {{ products.length }} of {{ pagination.totalResult }} products
+    </div>
+  </div>
+</section>

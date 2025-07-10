@@ -1,0 +1,113 @@
+<header class="bg-white shadow-xl border-b border-gray-100 sticky top-0 z-50">
+  <!-- Top Bar -->
+  <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white py-3">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center text-sm">
+        <div class="flex items-center space-x-6">
+          <span class="flex items-center hover:text-blue-200 transition-colors">
+            <i class="fas fa-phone mr-2 text-blue-200"></i>+1 234 567 890
+          </span>
+          <span class="flex items-center hover:text-blue-200 transition-colors">
+            <i class="fas fa-envelope mr-2 text-blue-200"></i>support&#64;shop.com
+          </span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex items-center bg-white/20 px-3 py-1 rounded-full text-xs font-medium">
+            <i class="fas fa-truck mr-2"></i>Free Shipping on Orders Over $500
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a routerLink="/" class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+          <i class="fas fa-shopping-bag mr-3 text-blue-600"></i>ShopHub
+        </a>
+      </div>
+
+      <!-- Right Side Actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Favorites -->
+        <a routerLink="/favs" class="group relative">
+          <div class="p-3 rounded-full hover:bg-red-50 transition-all duration-300 hover:scale-110">
+            <i class="fas fa-heart text-xl text-gray-600 group-hover:text-red-500 transition-colors"></i>
+          </div>
+        </a>
+
+        <!-- Cart -->
+        <a routerLink="/cart" class="group relative">
+          <div class="p-3 rounded-full hover:bg-blue-50 transition-all duration-300 hover:scale-110">
+            <i class="fas fa-shopping-cart text-xl text-gray-600 group-hover:text-blue-600 transition-colors"></i>
+          </div>
+        </a>
+
+        <!-- Orders -->
+        <a routerLink="/orders" class="group relative">
+          <div class="p-3 rounded-full hover:bg-green-50 transition-all duration-300 hover:scale-110">
+            <i class="fas fa-box text-xl text-gray-600 group-hover:text-green-600 transition-colors"></i>
+          </div>
+        </a>
+
+        <!-- Profile -->
+        <a routerLink="/userprofile" class="group relative">
+          <div class="p-3 rounded-full hover:bg-purple-50 transition-all duration-300 hover:scale-110">
+            <i class="fas fa-user text-xl text-gray-600 group-hover:text-purple-600 transition-colors"></i>
+          </div>
+        </a>       
+        
+        <!-- Auth Buttons -->
+        <div class="flex items-center space-x-3">
+          <!-- Logout Button -->
+          <button *ngIf="getUsername()" 
+                  (click)="logOut()" 
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 flex items-center">
+            <i class="fas fa-sign-out-alt mr-2"></i>
+            Logout
+          </button>
+
+          <!-- Login Button -->
+          <a *ngIf="!getUsername()" 
+             routerLink="/login" 
+             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 flex items-center">
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-center space-x-8 py-4 overflow-x-auto">
+        <a routerLink="/products" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-tshirt mr-2 group-hover:text-blue-600 transition-colors"></i>Products
+        </a>
+        <a routerLink="/categories" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-th-large mr-2 group-hover:text-blue-600 transition-colors"></i>Categories
+        </a>        
+        <a routerLink="/subcategories" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-th-large mr-2 group-hover:text-blue-600 transition-colors"></i>SubCategories
+        </a>
+        <a routerLink="/brands" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-tags mr-2 group-hover:text-blue-600 transition-colors"></i>Brands
+        </a>
+        <a routerLink="/aboutus" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-info-circle mr-2 group-hover:text-blue-600 transition-colors"></i>About Us
+        </a>
+        <a routerLink="/faq" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-question-circle mr-2 group-hover:text-blue-600 transition-colors"></i>FAQ
+        </a>
+        <a routerLink="/testimonials" class="flex items-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 group whitespace-nowrap">
+          <i class="fas fa-star mr-2 group-hover:text-blue-600 transition-colors"></i>Testimonials
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>

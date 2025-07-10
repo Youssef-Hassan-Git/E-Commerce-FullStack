@@ -1,0 +1,17 @@
+<!-- Root layout: full height column -->
+<div class="min-h-screen flex flex-col">
+  
+  <!-- Page content: sidebar + main area -->
+  <div class="flex flex-row flex-1">
+    <aside class="flex-shrink-0">
+      <app-sidebar></app-sidebar>
+    </aside>
+
+    <main class="flex flex-col flex-1 min-w-0 ">
+      <router-outlet></router-outlet>
+
+      <!-- Footer stays at bottom when content is short -->
+      <app-footer class="mt-auto "></app-footer>
+    </main>
+  </div>
+</div>

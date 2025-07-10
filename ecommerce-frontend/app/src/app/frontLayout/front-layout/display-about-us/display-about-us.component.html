@@ -1,0 +1,27 @@
+<!-- About Us Content -->
+<div class="container mx-auto px-4 py-16">
+  <!-- Dynamic About Us Content -->
+  <div *ngIf="aboutUs && aboutUs.length > 0" class="max-w-4xl mx-auto">
+    <div *ngFor="let about of aboutUs" class="bg-white rounded-xl shadow-lg p-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">
+        <i class="fas fa-info-circle text-blue-600 mr-3"></i>{{ about.title }}
+      </h1>
+      <div class="prose prose-lg max-w-none">
+        <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ about.description }}</p>
+      </div>
+      <div class="mt-6 text-sm text-gray-500 text-center">
+        <i class="fas fa-calendar mr-2"></i>
+        {{ about.createdAt | date:'mediumDate' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!aboutUs || aboutUs.length === 0" class="text-center py-16">
+    <div class="max-w-md mx-auto">
+      <i class="fas fa-info-circle text-6xl text-gray-300 mb-6"></i>
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">No Content Available</h2>
+      <p class="text-gray-600">About us content will be displayed here once available.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+# -------------------------------
+# Node.js backend
+# -------------------------------
+ecommerce-backend/node_modules/
+ecommerce-backend/.env
+ecommerce-backend/.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -------------------------------
+# Angular frontend
+# -------------------------------
+ecommerce-frontend/node_modules/
+ecommerce-frontend/dist/
+ecommerce-frontend/.env
+ecommerce-frontend/.angular/
+ecommerce-frontend/.DS_Store
+
+# -------------------------------
+# Global settings (OS + editors)
+# -------------------------------
+.vscode/
+.DS_Store
+Thumbs.db
+.idea/
+.env

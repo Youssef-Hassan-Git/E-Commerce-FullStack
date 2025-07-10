@@ -1,0 +1,143 @@
+<!-- Product Details Section -->
+<section class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <!-- Success Messages -->
+    <div *ngIf="cartMsg" class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        {{cartMsg}}
+      </div>
+    </div>
+    
+    <div *ngIf="favMsg" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg shadow-md">
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+        {{favMsg}}
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div *ngIf="product" class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+        <!-- Product Image -->
+        <div class="relative">
+          <img 
+            [src]="getImageUrl(product.imgURL)" 
+            [alt]="product.name" 
+            class="w-full h-96 object-contain bg-gray-100 rounded-lg shadow-md"          >
+          <div class="absolute top-4 right-4">
+            <button (click)="addToFav(product._id)" class="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-3 transition-all shadow-lg hover:scale-110">
+              <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="space-y-6">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">{{product.name}}</h1>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <span class="text-3xl font-bold text-green-600">{{product.price}}$</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-24">Brand:</span>
+                <span class="text-gray-600">{{product.brandId?.brandName || 'N/A'}}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-24">Category:</span>
+                <span class="text-gray-600">{{product.categoryId?.categoryName || 'N/A'}}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-24">Subcategory:</span>
+                <span class="text-gray-600">{{product.subCategoryId?.subCategoryName || 'N/A'}}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="font-semibold text-gray-700 w-24">Stock:</span>
+                <span class="text-gray-600">{{product.stock}} units</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-gray-700 mb-2">Description:</h3>
+              <p class="text-gray-600 leading-relaxed">{{product.desc}}</p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex space-x-4 pt-4">
+            <button (click)="addToCart(product._id)" class="flex-1 bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center font-semibold text-lg shadow-lg">
+              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+              </svg>
+              Add to Cart
+            </button>
+            <button (click)="addToFav(product._id)" class="bg-red-500 text-white px-8 py-4 rounded-lg hover:bg-red-600 transition-colors flex items-center justify-center font-semibold text-lg shadow-lg">
+              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+              Add to Favorites
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products Section -->
+    <div class="mt-16">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Related Products</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div *ngFor="let relatedProduct of relatedProducts" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100">
+          <div class="relative">
+            <img 
+              [src]="getImageUrl(relatedProduct.imgURL)" 
+              [alt]="relatedProduct.name" 
+              class="w-full h-48 object-contain bg-gray-100 transition-transform duration-300 hover:scale-105"            >
+            <div class="absolute top-2 right-2">
+              <button (click)="addToFav(relatedProduct._id)" class="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-2 transition-all shadow-lg">
+                <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <div class="p-4">
+            <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">{{relatedProduct.name}}</h3>
+            
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-lg font-bold text-green-600">{{relatedProduct.price}}$</span>
+              <span *ngIf="relatedProduct.originalPrice" class="text-sm text-gray-500 line-through">${{relatedProduct.originalPrice}}</span>
+            </div>
+            
+            <div class="flex space-x-2">
+              <button (click)="addToCart(relatedProduct._id)" class="flex-1 bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center justify-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m6 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                </svg>
+                Add to Cart
+              </button>
+              <a [routerLink]="['/products', relatedProduct._id]" class="bg-gray-600 text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+<div class="w-full py-4 pe-6">
+  <table class="w-full table-auto border border-gray-300 rounded-lg shadow-md overflow-hidden">
+    <thead class="bg-gray-100 text-left">
+      <tr>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-id-card mr-2"></i>User ID
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-user mr-2"></i>Name
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-envelope mr-2"></i>Email
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-phone mr-2"></i>Phone
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-map-marker-alt mr-2"></i>Address
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-user-tag mr-2"></i>Role
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-venus-mars mr-2"></i>Gender
+        </th>
+        <th class="p-3 text-gray-700 font-semibold border-b border-gray-300">
+          <i class="fas fa-calendar-alt mr-2"></i>Created At
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of allUsers" class="hover:bg-gray-50 transition-colors">
+        <td class="p-3 border-b border-gray-200 font-mono text-sm">
+          <i class="fas fa-hashtag mr-1 text-gray-400"></i>{{ user._id }}
+        </td>
+        <td class="p-3 border-b border-gray-200 font-semibold">
+          <i class="fas fa-user-circle mr-2 text-blue-500"></i>{{ user.name }}
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <i class="fas fa-envelope mr-2 text-green-500"></i>{{ user.email }}
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <i class="fas fa-phone mr-2 text-purple-500"></i>{{ user.phone }}
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <div class="max-w-xs truncate" title="{{ user.address?.fulladdress }}">
+            <i class="fas fa-home mr-2 text-orange-500"></i>{{ user.address?.fulladdress || 'N/A' }}
+          </div>
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <span
+            [class.text-blue-600]="user.role === 'admin'"
+            [class.text-green-600]="user.role === 'user'"
+            class="font-bold"
+          >
+            <i [class]="user.role === 'admin' ? 'fas fa-crown mr-1' : 'fas fa-user mr-1'"></i>
+            {{ user.role }}
+          </span>
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <span
+            [class.text-purple-600]="user.gender === 'M'"
+            [class.text-pink-600]="user.gender === 'F'"
+            class="font-bold"
+          >
+            <i [class]="user.gender === 'M' ? 'fas fa-mars mr-1' : 'fas fa-venus mr-1'"></i>
+            {{ user.gender === 'M' ? 'Male' : user.gender === 'F' ? 'Female' : user.gender }}
+          </span>
+        </td>
+        <td class="p-3 border-b border-gray-200">
+          <i class="fas fa-clock mr-2 text-gray-400"></i>{{ user.createdAt | date:'medium' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Summary Stats -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <div class="text-2xl font-bold text-blue-600">{{ totalUsers }}</div>
+      <div class="text-sm text-gray-600">Total Users</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <div class="text-2xl font-bold text-green-600">{{ regularUsers }}</div>
+      <div class="text-sm text-gray-600">Regular Users</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <div class="text-2xl font-bold text-orange-600">{{ adminUsers }}</div>
+      <div class="text-sm text-gray-600">Admins</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <div class="text-2xl font-bold text-purple-600">{{ maleUsers }}</div>
+      <div class="text-sm text-gray-600">Male Users</div>
+    </div>
+  </div>
+</div>

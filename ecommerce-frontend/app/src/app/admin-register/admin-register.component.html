@@ -1,0 +1,103 @@
+<div class="flex flex-col justify-center items-center container">
+  <div class="w-full md:w-5/12">
+    <h2 class="text-2xl font-bold mb-6 text-center">Admin Registration</h2>
+
+    <div class="shadow-blue-200 shadow-2xl p-8 rounded-xl my-3">
+      <form [formGroup]="registerForm" (ngSubmit)="adminRegister()">
+
+        <!-- Name -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Name</label>
+          <input type="text" formControlName="name" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+            [class.border-red-500]="registerForm.get('name')?.touched && registerForm.get('name')?.invalid"
+            placeholder="Enter your name"/>
+          <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="text-red-500">
+            Name is required.
+          </small>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Email</label>
+          <input type="email" formControlName="email" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+            [class.border-red-500]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+            placeholder="Enter your email"/>
+          <small *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-red-500">
+            Valid email required.
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Password</label>
+          <input type="password" formControlName="password" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+            [class.border-red-500]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+            placeholder="Enter password"/>
+          <small *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-red-500">
+            Minimum 6 characters.
+          </small>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Confirm Password</label>
+          <input type="password" formControlName="confirmPassword" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+            [class.border-red-500]="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched"
+            placeholder="Confirm password"
+          />
+          <small *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched" class="text-red-500">
+            Passwords do not match.
+          </small>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Phone</label>
+          <input type="tel" formControlName="phone" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+            [class.border-red-500]="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid"
+            placeholder="Phone number" />
+          <small *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid" class="text-red-500">
+            Phone is required.
+          </small>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Gender</label>
+          <select formControlName="gender" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0">
+            <option value="">Select gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-6" [formGroupName]="'address'">
+          <label class="block text-sm font-medium mb-2">Full Address</label>
+          <input type="text" formControlName="fulladdress"
+              class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2  border-gray-400 focus:outline-0"
+              [class.border-red-500]="registerForm.get('address.fulladdress')?.touched && registerForm.get('address.fulladdress')?.invalid"
+              placeholder="Your full address" />
+          <small *ngIf="registerForm.get('address.fulladdress')?.touched && registerForm.get('address.fulladdress')?.invalid" class="text-red-500">
+              Address is required.
+          </small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-2xl hover:bg-blue-700 transition" [disabled]="registerForm.invalid">
+          Register
+        </button>
+
+        <!-- Success Message -->
+        <div *ngIf="message" class="text-green-600 text-center mt-4">{{ message }}</div>
+        <div *ngIf="errMessage" class="text-red-600 text-center mt-4">{{ errMessage }}</div>
+      </form>
+
+    <div class="pt-4 text-center">
+       
+      <a routerLink="/login" class="text-blue-400 underline">Already have an account? Login</a>        
+    </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="w-full py-6 px-6 bg-gray-50 min-h-screen">
+  <!-- Header Section -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+      <i class="fas fa-tags mr-3 text-purple-600"></i>Brand Management
+    </h1>
+    <p class="text-gray-600">View and manage all brands in your e-commerce store</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Total Brands</p>
+          <p class="text-3xl font-bold text-gray-900">{{ totalBrands }}</p>
+        </div>
+        <div class="bg-purple-100 p-3 rounded-full">
+          <i class="fas fa-tags text-2xl text-purple-600"></i>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Active Brands</p>
+          <p class="text-3xl font-bold text-gray-900">{{ activeBrands }}</p>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">
+          <i class="fas fa-check-circle text-2xl text-green-600"></i>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Popular Brands</p>
+          <p class="text-3xl font-bold text-gray-900">{{ popularBrands }}</p>
+        </div>
+        <div class="bg-blue-100 p-3 rounded-full">
+          <i class="fas fa-star text-2xl text-blue-600"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+    <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-6">
+      <h2 class="text-xl font-bold text-white flex items-center">
+        <i class="fas fa-list mr-3"></i>All Brands
+      </h2>
+    </div>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
+            <th class="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+              <div class="flex items-center">
+                <i class="fas fa-tag mr-2 text-purple-500"></i>
+                Brand Name
+              </div>
+            </th>
+            <th class="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">
+              <div class="flex items-center">
+                <i class="fas fa-cog mr-2 text-gray-500"></i>
+                Actions
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let brand of brands; let i = index" 
+              class="hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 transition-all duration-200 transform hover:scale-[1.01]">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-2 mr-4">
+                  <i class="fas fa-tag text-white text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-gray-900">{{ brand.brandName }}</div>
+                  <div class="text-sm text-gray-500">Brand ID: {{ brand._id }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <button
+                (click)="deleteBrand(brand._id)"
+                class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center shadow-lg hover:shadow-xl">
+                <i class="fas fa-trash mr-2"></i>
+                <span class="font-medium">Delete</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div *ngIf="brands.length === 0" class="text-center py-12">
+      <div class="bg-gray-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-tags text-2xl text-gray-400"></i>
+      </div>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">No brands found</h3>
+      <p class="text-gray-500">Start by adding your first brand to the store.</p>
+    </div>
+  </div>
+</div>

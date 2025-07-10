@@ -1,0 +1,76 @@
+<div class="w-full py-6 px-6 bg-gray-50 min-h-screen">
+  <!-- Header Section -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+      <i class="fas fa-question-circle mr-3 text-yellow-600"></i>Add New FAQ
+    </h1>
+    <p class="text-gray-600">Create a new frequently asked question for your e-commerce store</p>
+  </div>
+
+  <!-- Form Container -->
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <form [formGroup]="addFAQForm" (ngSubmit)="addFAQ()" class="space-y-6">
+        
+        <!-- Question -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="question">
+            <i class="fas fa-question mr-2 text-yellow-600"></i>Question
+          </label>
+          <input
+            type="text"
+            formControlName="question"
+            placeholder="Enter the question"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addFAQForm.get('question')?.touched && addFAQForm.get('question')?.invalid"
+          />
+          <div
+            class="text-red-600 text-sm mt-1 flex items-center"
+            *ngIf="addFAQForm.get('question')?.touched && addFAQForm.get('question')?.invalid"
+          >
+            <i class="fas fa-exclamation-circle mr-1"></i>Question is required.
+          </div>
+        </div>
+
+        <!-- Answer -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="answer">
+            <i class="fas fa-comment mr-2 text-orange-600"></i>Answer
+          </label>
+          <textarea
+            formControlName="answer"
+            rows="6"
+            placeholder="Enter the answer"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all resize-none"
+            [class.border-red-500]="addFAQForm.get('answer')?.touched && addFAQForm.get('answer')?.invalid"
+          ></textarea>
+          <div
+            class="text-red-600 text-sm mt-1 flex items-center"
+            *ngIf="addFAQForm.get('answer')?.touched && addFAQForm.get('answer')?.invalid"
+          >
+            <i class="fas fa-exclamation-circle mr-1"></i>Answer is required.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button
+            type="submit"
+            [disabled]="addFAQForm.invalid"
+            class="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-500 p-4 rounded-lg text-white font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
+          >
+            <i class="fas fa-plus-circle mr-2"></i>Add FAQ
+          </button>
+        </div>
+
+        <!-- Messages -->
+        <div *ngIf="msg" class="text-center text-green-600 py-3 bg-green-50 rounded-lg flex items-center justify-center">
+          <i class="fas fa-check-circle mr-2"></i>{{ msg }}
+        </div>
+        <div *ngIf="errMsg" class="text-center text-red-600 py-3 bg-red-50 rounded-lg flex items-center justify-center">
+          <i class="fas fa-exclamation-triangle mr-2"></i>{{ errMsg }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

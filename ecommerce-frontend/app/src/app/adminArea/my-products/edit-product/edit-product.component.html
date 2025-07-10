@@ -1,0 +1,93 @@
+<div class="flex flex-row container justify-center items-center">
+
+<div class="w-full md:w-6/12 py-2">
+<div>
+    <form [formGroup]="editProductForm" (ngSubmit)="editProduct()">
+  <div>
+    <label class="block text-lg font-bold mb-2" for="name">Name:</label>
+    <input id="name" formControlName="name" type="text" placeholder="Enter product name" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none  focus:ring-0" />
+    <div *ngIf="editProductForm.get('name')?.invalid && editProductForm.get('name')?.touched" class="text-red-600">
+      Name is required.
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-lg font-bold mb-2 pt-3" for="price">Price:</label>
+    <input id="price" formControlName="price" type="number" min="0" step="0.01" placeholder="Enter price" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none  focus:ring-0" />
+    <div *ngIf="editProductForm.get('price')?.invalid && editProductForm.get('price')?.touched" class="text-red-600 ">
+      Price is required and must be non-negative.
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-lg font-bold mb-2 pt-3" for="desc">Description:</label>
+    <textarea id="desc" formControlName="desc" rows="2" cols="6" placeholder="Enter product description" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none  focus:ring-0 resize-none"></textarea>
+    <div *ngIf="editProductForm.get('desc')?.invalid && editProductForm.get('desc')?.touched" class="text-red-600">
+      Description is required.
+    </div>
+  </div>
+
+    <div>
+    <label for="brandName" class="block text-lg font-bold mb-2 pt-3">Brand Name:</label>
+    <select id="brandName" formControlName="brandName" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none focus:ring-0">
+        <option value="" disabled>Select a brand</option>
+        <option *ngFor="let brand of brands" [value]="brand.brandName">{{ brand.brandName }}</option>
+    </select>
+    <div *ngIf="editProductForm.get('brandName')?.invalid && editProductForm.get('brandName')?.touched" class="text-red-600">
+        Brand name is required.
+    </div>
+    </div>
+
+<!-- Category Select -->
+<div>
+  <label for="categoryName" class="block text-lg font-bold mb-2 pt-3">Category:</label>
+  <select  id="categoryName" formControlName="categoryName" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none focus:ring-0" >
+    <option value="" disabled>Select a category</option>
+    <option *ngFor="let category of categories" [value]="category.categoryName">
+      {{ category.categoryName }}
+    </option>
+  </select>
+  <div *ngIf="editProductForm.get('categoryName')?.invalid && editProductForm.get('categoryName')?.touched" class="text-red-600">
+    Category is required.
+  </div>
+</div>
+
+<!-- Subcategory Select -->
+<div>
+  <label for="subCategoryName" class="block text-lg font-bold mb-2 pt-3">Subcategory:</label>
+  <select  id="subCategoryName" formControlName="subCategoryName" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none focus:ring-0" >
+    <option value="" disabled selected>Select a subcategory</option>
+    <option *ngFor="let sub of subCategories" [value]="sub.subCategoryName">
+      {{ sub.subCategoryName }}
+    </option>
+  </select>
+  <div *ngIf="editProductForm.get('subCategoryName')?.invalid && editProductForm.get('subCategoryName')?.touched" class="text-red-600">
+    Subcategory is required.
+  </div>
+</div>
+
+  <div>
+    <label class="block text-lg font-bold mb-2 pt-3" for="stock">Stock:</label>
+    <input id="stock" formControlName="stock" type="number" min="0" placeholder="Enter stock quantity" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none  focus:ring-0" />
+    <div *ngIf="editProductForm.get('stock')?.invalid && editProductForm.get('stock')?.touched" class="text-red-600">
+      Stock is required and must be non-negative.
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-lg font-bold mb-2 pt-3" for="img">Image (Optional):</label>
+    <input id="img" formControlName="imgURL" (change)="onFileChange($event)" type="file" class="w-full p-2 rounded-4xl border-b-2 border-l-2 border-r-2 border-gray-400 focus:outline-none focus:ring-0 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+    <div class="text-gray-500 text-sm">Leave empty to keep the current image</div>
+  </div>
+
+  <button type="submit" [disabled]="editProductForm.invalid" class="p-2 bg-blue-600  rounded-2xl w-full mt-3 hover:bg-blue-700 text-white transition-all duration-500">Edit Product</button>
+
+  <div *ngIf="msg" class="text-center text-green-500 py-3">{{msg}}</div>
+  <div *ngIf="errMsg" class="text-center text-red-500 py-3">{{errMsg}}</div>
+</form>
+
+</div>
+
+</div>
+
+</div>

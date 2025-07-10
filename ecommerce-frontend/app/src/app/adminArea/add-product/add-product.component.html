@@ -1,0 +1,155 @@
+<div class="w-full py-6 px-6 bg-gray-50 min-h-screen">
+  <!-- Header Section -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">
+      <i class="fas fa-plus-circle mr-3 text-blue-600"></i>Add New Product
+    </h1>
+    <p class="text-gray-600">Create a new product for your e-commerce store</p>
+  </div>
+
+  <!-- Form Container -->
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" class="space-y-6">
+        
+        <!-- Product Name -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="name">
+            <i class="fas fa-tag mr-2 text-blue-600"></i>Product Name
+          </label>
+          <input id="name" formControlName="name" type="text" placeholder="Enter product name"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('name')?.invalid && addProductForm.get('name')?.touched" />
+          <div *ngIf="addProductForm.get('name')?.invalid && addProductForm.get('name')?.touched" 
+               class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Name is required.
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="price">
+            <i class="fas fa-dollar-sign mr-2 text-green-600"></i>Price
+          </label>
+          <input id="price" formControlName="price" type="number" min="0" step="0.01" placeholder="Enter price"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('price')?.invalid && addProductForm.get('price')?.touched" />
+          <div *ngIf="addProductForm.get('price')?.invalid && addProductForm.get('price')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Price is required and must be non-negative.
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="desc">
+            <i class="fas fa-align-left mr-2 text-purple-600"></i>Description
+          </label>
+          <textarea id="desc" formControlName="desc" rows="4" placeholder="Enter product description"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+            [class.border-red-500]="addProductForm.get('desc')?.invalid && addProductForm.get('desc')?.touched"></textarea>
+          <div *ngIf="addProductForm.get('desc')?.invalid && addProductForm.get('desc')?.touched" 
+               class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Description is required.
+          </div>
+        </div>
+
+        <!-- Brand Selection -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="brandName">
+            <i class="fas fa-tags mr-2 text-orange-600"></i>Brand Name
+          </label>
+          <select id="brandName" formControlName="brandName"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('brandName')?.invalid && addProductForm.get('brandName')?.touched">
+            <option value="" disabled selected>Select a brand</option>
+            <option *ngFor="let brand of brands" [value]="brand.brandName">{{ brand.brandName }}</option>
+          </select>
+          <div *ngIf="addProductForm.get('brandName')?.invalid && addProductForm.get('brandName')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Brand name is required.
+          </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="categoryName">
+            <i class="fas fa-folder mr-2 text-indigo-600"></i>Category
+          </label>
+          <select id="categoryName" formControlName="categoryName"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('categoryName')?.invalid && addProductForm.get('categoryName')?.touched">
+            <option value="" disabled selected>Select a category</option>
+            <option *ngFor="let category of categories" [value]="category.categoryName">{{ category.categoryName }}</option>
+          </select>
+          <div *ngIf="addProductForm.get('categoryName')?.invalid && addProductForm.get('categoryName')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Category is required.
+          </div>
+        </div>
+
+        <!-- Subcategory Selection -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="subCategoryName">
+            <i class="fas fa-folder-open mr-2 text-teal-600"></i>Subcategory
+          </label>
+          <select id="subCategoryName" formControlName="subCategoryName"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('subCategoryName')?.invalid && addProductForm.get('subCategoryName')?.touched">
+            <option value="" disabled selected>Select a subcategory</option>
+            <option *ngFor="let sub of subCategories" [value]="sub.subCategoryName">{{ sub.subCategoryName }}</option>
+          </select>
+          <div *ngIf="addProductForm.get('subCategoryName')?.invalid && addProductForm.get('subCategoryName')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Subcategory is required.
+          </div>
+        </div>
+
+        <!-- Stock -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="stock">
+            <i class="fas fa-boxes mr-2 text-yellow-600"></i>Stock Quantity
+          </label>
+          <input id="stock" formControlName="stock" type="number" min="0" placeholder="Enter stock quantity"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
+            [class.border-red-500]="addProductForm.get('stock')?.invalid && addProductForm.get('stock')?.touched" />
+          <div *ngIf="addProductForm.get('stock')?.invalid && addProductForm.get('stock')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Stock is required and must be non-negative.
+          </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2" for="img">
+            <i class="fas fa-image mr-2 text-pink-600"></i>Product Image
+          </label>
+          <input id="img" formControlName="imgURL" (change)="onFileChange($event)" type="file"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100"
+            [class.border-red-500]="addProductForm.get('imgURL')?.invalid && addProductForm.get('imgURL')?.touched" />
+          <div *ngIf="addProductForm.get('imgURL')?.invalid && addProductForm.get('imgURL')?.touched"
+            class="text-red-600 text-sm mt-1 flex items-center">
+            <i class="fas fa-exclamation-circle mr-1"></i>Product image is required.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button type="submit" [disabled]="addProductForm.invalid"
+            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 p-4 rounded-lg text-white font-semibold transition-all duration-200 transform hover:scale-105 flex items-center justify-center">
+            <i class="fas fa-plus-circle mr-2"></i>
+            Add Product
+          </button>
+        </div>
+
+        <!-- Messages -->
+        <div *ngIf="msg" class="text-center text-green-600 py-3 bg-green-50 rounded-lg flex items-center justify-center">
+          <i class="fas fa-check-circle mr-2"></i>{{ msg }}
+        </div>
+        <div *ngIf="errMsg" class="text-center text-red-600 py-3 bg-red-50 rounded-lg flex items-center justify-center">
+          <i class="fas fa-exclamation-triangle mr-2"></i>{{ errMsg }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
